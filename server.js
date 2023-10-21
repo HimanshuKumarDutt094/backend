@@ -32,6 +32,7 @@ const client = production
 const io = new Server(server, {
   cors: {
     origin: client,
+    methods: ["GET"],
   },
 });
 
@@ -75,12 +76,12 @@ const words = [
 ];
 io.on("connection", (socket) => {
   socket.on("join-room", (data) => {
-    // const user = { id: socket.id, name: data.name, socket: socket };
-    const user = {
-      id: 123,
-      name: "abhishek",
-      socket: socket,
-    };
+    const user = { id: socket.id, name: data.name, socket: socket };
+    // const user = {
+    //   id: 123,
+    //   name: "abhishek",
+    //   socket: socket,
+    // };
     let room = rooms[data.roomId];
     if (room == null) {
       room = { users: [], id: data.roomId };
